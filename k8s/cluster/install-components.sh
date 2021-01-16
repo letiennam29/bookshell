@@ -1,15 +1,24 @@
 #!/usr/bin/env bash
 set -e  # halt if any error occurs
 
-K8S_VERSION="1.16.4-00" # K8s is changed regularly. I just want to keep this script stable with v1.16
+K8S_VERSION="1.19.7-00" # K8s is changed regularly. I just want to keep this script stable with v1.16
 
 echo "--> STEP 01. check requirements"
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 sudo swapoff -a
 SWAP_MEM=$(cat /proc/meminfo | grep 'SwapTotal' | cut -d":" -f2 | xargs | cut -d" " -f1)
 if [[ ! $SWAP_MEM -eq 0 ]]; then
     echo "ERROR: cannot turn of swap memory on this node."
     exit 1
 fi
+sudo modprobe overlay
+sudo modprobe br_netfilter
+sudo tee /etc/sysctl.d/kubernetes.conf<<EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+EOF
+sudo sysctl --system
 sudo apt-get update
 sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
 
