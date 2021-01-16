@@ -16,9 +16,11 @@ POD_IP_RANGE="192.168.0.0/16"  # This IP Range is the default value of Calico
 $SCRIPT_HOME/install-components.sh
 
 # Init the cluster
-sudo kubeadm init --pod-network-cidr=$POD_IP_RANGE --upload-certs | tee kubeadm-init.out
+#sudo kubeadm init --pod-network-cidr=$POD_IP_RANGE --upload-certs | tee kubeadm-init.out
+sudo kubeadm init
 
 # Admin config for Master node
+sudo rm -r $HOME/.kube
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
