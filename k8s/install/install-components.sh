@@ -29,5 +29,5 @@ echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/
 sudo apt update
 sudo apt install kubelet kubeadm kubectl -y
 sudo systemctl daemon-reload 
-sudo systemctl restart kubectl
-sudo systemctl enable kubectl
+#sudo systemctl restart kubectl
+#sudo systemctl enable kubectl
