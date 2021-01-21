@@ -6,7 +6,7 @@ POD_IP_RANGE="172.16.0.0/16"  # This IP Range is the default value of Flannel
 
 $SCRIPT_HOME/install-components.sh
 
-sudo kubeadm init --apiserver-advertise-address=$POD_IP_MASTER --pod-network-cidr=$POD_IP_RANGE
+sudo kubeadm init --apiserver-advertise-address=$POD_IP_MASTER --pod-network-cidr=$POD_IP_RANGE --ignore-preflight-errors=all --upload-certs
 # Admin config for Master node
 if [ -d "$HOME/.kube" ]; then
   sudo rm -r $HOME/.kube
