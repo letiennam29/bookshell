@@ -28,6 +28,8 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kurbenetes.list
 sudo apt update
 sudo apt install kubelet kubeadm kubectl -y
-sudo systemctl daemon-reload 
+sudo systemctl daemon-reload
 #sudo systemctl restart kubectl
 #sudo systemctl enable kubectl
+echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
