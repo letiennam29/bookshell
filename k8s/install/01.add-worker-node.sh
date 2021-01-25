@@ -8,5 +8,5 @@ if [[ -z "$MASTER_NODE_IP" ]]; then
 fi
 
 $SCRIPT_HOME/install-components.sh
-echo "$MASTER_NODE_IP master" | sudo tee -a /etc/hosts
+echo "$MASTER_NODE_IP k8smaster" | sudo tee -a /etc/hosts
 echo; echo "--> Nex step: Run 'kubeadm join ...' that shows on master node."
